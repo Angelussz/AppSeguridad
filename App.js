@@ -18,10 +18,10 @@ const MyStack = () => {
         {(props) => <Inicio {...props} />}
       </Stack.Screen>
       <Stack.Screen name="Puerta1" options={{ title: "Sala" }} >
-        {(props) => <Puerta {...props} sensor="sensor1" lugar="Sala" imagenLugar={sala}  />}
+        {(props) => <Puerta {...props} sensor="sensorPatio" lugar="Sala" imagenLugar={sala}  />}
       </Stack.Screen>
       <Stack.Screen name="Puerta2" options={{ title: "Patio" }} >
-        {(props) => <Puerta {...props} sensor="sensor2" lugar="Patio" imagenLugar={patio} />}
+        {(props) => <Puerta {...props} sensor="sensorSala" lugar="Patio" imagenLugar={patio} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

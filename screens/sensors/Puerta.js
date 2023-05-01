@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, StyleSheet,Dimensions, Button, Alert } from "react-native";
 import miFirebase from "../../firebase"
-import { query,getDocs, where, collection} from "firebase/firestore";
+import { query,getDocs, where, collection, onSnapshot, doc} from "firebase/firestore";
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -18,10 +18,16 @@ export async function getItems(uid){
         return items;
     } catch (error) {
         throw new Error(error);
-        console.log(error);
+        // console.log(error);
     }
 }
 const Puerta = ({ sensor, lugar, imagenLugar }) => {
+  useEffect(()=>{
+    onSnapshot(doc(miFirebase.db, "sensores", sensor), (doc) => {
+    console.log("Current data: ", doc.data());
+});
+  },[])
+  // unsub
   return (
     <View style={{backgroundColor:"#0c649c", minHeight:windowHeight}}>
       <View style={{backgroundColor:"#2474a9"}}>
