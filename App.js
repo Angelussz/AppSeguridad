@@ -12,7 +12,7 @@ const MyStack = () => {
     <Stack.Navigator initialRouteName="Inicio">
       <Stack.Screen
         name="Inicio"
-        options={{ title: "Tus Sensores Entel" }}
+        options={{ title: "Tus Sensores Entel"}}
        
       >
         {(props) => <Inicio {...props} />}
@@ -42,3 +42,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+//
