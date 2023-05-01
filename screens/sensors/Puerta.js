@@ -1,9 +1,26 @@
 import React from "react";
 import { View, Text, Image, StyleSheet,Dimensions, Button, Alert } from "react-native";
 import miFirebase from "../../firebase"
+import { query,getDocs, where, collection} from "firebase/firestore";
 
 const windowHeight = Dimensions.get('window').height;
 
+export async function getItems(uid){
+    try {
+        let items = []
+        
+        const q = query(collection(miFirebase.db, "sensores"), where("id", "==", uid));
+        const response = await getDocs(q);
+        response.forEach((doc)=>{
+            items.push(doc.data())
+            
+        })
+        return items;
+    } catch (error) {
+        throw new Error(error);
+        console.log(error);
+    }
+}
 const Puerta = ({ sensor, lugar, imagenLugar }) => {
   return (
     <View style={{backgroundColor:"#0c649c", minHeight:windowHeight}}>
@@ -23,7 +40,11 @@ const Puerta = ({ sensor, lugar, imagenLugar }) => {
         <Text style={styles.text} >Prendio Sensor de {lugar} a las {"(date)"}</Text>
         <Text style={styles.text} >Prendio Sensor de {lugar} a las {"(date)"}</Text>
       </View>
-      <Button onPress={()=> console.log("hola")} title="presionar" />
+      <Button onPress={async()=>{
+        let sensor = await getItems(1);
+        console.log(sensor);
+      }
+          } title="presionar" />
     </View>
   );
 };
