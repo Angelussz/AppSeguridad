@@ -12,20 +12,29 @@ import patio from "../assets/patio.jpg";
 import sala from "../assets/sala.jpg";
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-
+import messaging from '@react-native-firebase/messaging';
 
 const windowHeight = Dimensions.get("window").height;
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
 
 const Inicio = ({ navigation }) => {
-  
+  async function requestUserPermission() {
+  const authStatus = await messaging().requestPermission();
+  const enabled =
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  if (enabled) {
+    console.log('Authorization status:', authStatus);
+  }
+}
+  useEffect(() => {
+    if(requestUserPermission()){
+      messaging().getToken().then(token=>{
+        console.log(token);
+      })
+    }
+  }, [])
   
   return (
     <View
