@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,8 +10,23 @@ import {
 } from "react-native";
 import patio from "../assets/patio.jpg";
 import sala from "../assets/sala.jpg";
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+
+
 const windowHeight = Dimensions.get("window").height;
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 const Inicio = ({ navigation }) => {
+  
+  
   return (
     <View
       style={{ flex: 1, backgroundColor: "#0c649c", minHeight: windowHeight }}
